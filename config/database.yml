@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  url: postgres://postgres:password@localhost/crm_api_dev
+
+test:
+  <<: *default
+  url: postgres://postgres:password@localhost/crm_api_test
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
