@@ -14,6 +14,7 @@ class CustomersController < ApplicationController
 
   def create
     customer = Customer.new(customer_params)
+    customer.user = current_user
     if customer.save
       render json: customer, status: :created
     else

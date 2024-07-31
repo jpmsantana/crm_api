@@ -63,6 +63,10 @@ RSpec.describe 'Customers' do
         'surname' => customer_params[:surname]
       )
     end
+
+    it 'saves the user_id of the creator' do
+      expect(response_hash['user_id']).to eq(user.id)
+    end
   end
 
   describe 'PUT /customers/:id' do
@@ -95,7 +99,7 @@ RSpec.describe 'Customers' do
   end
 
   describe 'DELETE /customers/:id' do
-    let!(:customer) { create(:customer) }
+    let(:customer) { create(:customer) }
 
     before do
       delete "/customers/#{customer.id}"
