@@ -1,5 +1,11 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   skip_before_action :authorized, only: :create
+
+  def show
+    render json: { user: { email: current_user.email } }
+  end
 
   def create
     user = User.find_by(email: session_params[:email])
@@ -11,10 +17,6 @@ class SessionsController < ApplicationController
 
     token = encode_token(id: user.id)
     render json: { user: { email: user.email }, jwt: token }
-  end
-
-  def show
-    render json: { user: { email: current_user.email } }
   end
 
   private

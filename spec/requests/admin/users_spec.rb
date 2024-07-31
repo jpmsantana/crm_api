@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Admin::Users' do
   let(:admin_user) { create(:user, admin: true) }
-  let(:response_hash) { JSON.parse(response.body) }
+  let(:response_hash) { response.parsed_body }
 
   before do
     allow_any_instance_of(ApplicationController)

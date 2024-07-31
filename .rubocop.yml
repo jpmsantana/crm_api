@@ -1,0 +1,66 @@
+require:
+  - rubocop-rails
+  - rubocop-factory_bot
+  - rubocop-rspec
+  - rubocop-rspec_rails
+
+AllCops:
+  NewCops: enable
+
+Layout/EmptyLines:
+  Exclude:
+    - 'config/environments/development.rb'
+
+Layout/MultilineMethodCallIndentation:
+  Exclude:
+    - 'config/environments/production.rb'
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Exclude:
+    - 'config/environments/production.rb'
+
+RSpec/AnyInstance:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 6
+
+Style/Documentation:
+  Enabled: false
+
+Style/GlobalStdStream:
+  Exclude:
+    - 'config/environments/production.rb'
+
+Style/PercentLiteralDelimiters:
+  Exclude:
+    - 'config/application.rb'
+
+Style/RedundantConstantBase:
+  Exclude:
+    - 'config/environments/production.rb'
+
+Style/RedundantFetchBlock:
+  Exclude:
+    - 'config/puma.rb'
+
+Style/StringLiterals:
+  Exclude:
+    - 'Rakefile'
+    - 'app/mailers/application_mailer.rb'
+    - 'config.ru'
+    - 'config/application.rb'
+    - 'config/boot.rb'
+    - 'config/environment.rb'
+    - 'config/environments/development.rb'
+    - 'config/environments/production.rb'
+    - 'config/environments/test.rb'
+    - 'config/puma.rb'
+
+Style/SymbolArray:
+  EnforcedStyle: percent
+  MinSize: 10
+
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Customers' do
   let(:user) { create(:user) }
-  let(:response_hash) { JSON.parse(response.body) }
+  let(:response_hash) { response.parsed_body }
 
   before do
     allow_any_instance_of(ApplicationController)
