@@ -5,7 +5,8 @@ RSpec.describe 'Admin::Users' do
   let(:response_hash) { JSON.parse(response.body) }
 
   before do
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_user)
+    allow_any_instance_of(ApplicationController)
+      .to receive(:current_user).and_return(admin_user)
   end
 
   describe 'GET /users' do
@@ -43,12 +44,8 @@ RSpec.describe 'Admin::Users' do
       expect(response).to have_http_status(:ok)
     end
 
-    it 'returns the id' do
-      expect(response_hash.keys).to include('id')
-    end
-
-    it 'returns the email' do
-      expect(response_hash.keys).to include('email')
+    it 'returns the user (id, email)' do
+      expect(response_hash.keys).to include('id', 'email')
     end
 
     context 'when wrong params' do
@@ -64,6 +61,10 @@ RSpec.describe 'Admin::Users' do
 
       it 'returns unprocessable entity response' do
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'does not return the user' do
+        expect(response_hash.keys).not_to include('id')
       end
     end
   end
@@ -109,6 +110,10 @@ RSpec.describe 'Admin::Users' do
 
       it 'returns unprocessable entity response' do
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'does not return the user' do
+        expect(response_hash.keys).not_to include('id')
       end
     end
   end

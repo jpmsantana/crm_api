@@ -38,7 +38,8 @@ RSpec.describe 'Sessions' do
 
   describe 'GET /session' do
     before do
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(user)
       get '/session'
     end
 
