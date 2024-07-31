@@ -2,6 +2,12 @@
 
 class ApplicationController < ActionController::API
   before_action :authorized
+  before_action :ensure_json_request
+  helper_method :current_user
+
+  def ensure_json_request
+    request.format = :json
+  end
 
   def encode_token(payload)
     JWT.encode(payload, Rails.application.credentials.secret_key_base)

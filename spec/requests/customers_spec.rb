@@ -22,7 +22,7 @@ RSpec.describe 'Customers' do
     end
 
     it 'returns a list of customers' do
-      expect(response_hash.count).to eq 5
+      expect(response_hash['customers'].count).to eq 5
     end
   end
 
@@ -47,14 +47,17 @@ RSpec.describe 'Customers' do
   end
 
   describe 'POST /customers' do
-    let(:customer_params) { attributes_for(:customer) }
+    let(:customer_params) do
+      attributes_for(:customer)
+        .merge(photo: Rack::Test::UploadedFile.new('spec/fixtures/files/sample.jpg', 'image/jpeg'))
+    end
 
     before do
       post '/customers', params: { customer: customer_params }
     end
 
     it 'returns created response' do
-      expect(response).to have_http_status(:created)
+      expect(response).to have_http_status(:ok)
     end
 
     it 'returns the created customer' do
@@ -65,7 +68,11 @@ RSpec.describe 'Customers' do
     end
 
     it 'saves the user_id of the creator' do
-      expect(response_hash['user_id']).to eq(user.id)
+      expect(response_hash['user']['id']).to eq(user.id)
+    end
+
+    it 'attaches the photo' do
+      expect(Customer.last.photo).to be_attached
     end
   end
 

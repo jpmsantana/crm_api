@@ -23,7 +23,7 @@ RSpec.describe 'Admin::Users' do
     it 'returns an array of users' do
       create_list(:user, 3)
       get '/admin/users'
-      expect(response_hash.count).to eq 4
+      expect(response_hash['users'].count).to eq 4
     end
   end
 

@@ -2,32 +2,29 @@
 
 module Admin
   class UsersController < ApplicationController
+    before_action :set_user, only: %i[create update destroy update_admin_status]
+
     def index
-      users = User.all
-      render json: users
+      @users = User.all
     end
 
     def create
-      user = User.new(user_params)
-      if user.save
-        render json: { id: user.id, email: user.email, admin: user.admin }
-      else
+      @user = User.new(user_params)
+      unless @user.save
         render json: {}, status: :unprocessable_entity
+        return
       end
     end
 
     def update
-      user = User.find_by(id: params[:id])
-      if user.update(user_params)
-        render json: { id: user.id, email: user.email, admin: user.admin }
-      else
+      unless @user.update(user_params)
         render json: {}, status: :unprocessable_entity
+        return
       end
     end
 
     def destroy
-      user = User.find_by(id: params[:id])
-      if user&.destroy
+      if @user&.destroy
         render json: {}, status: :ok
       else
         render json: {}, status: :unprocessable_entity
@@ -35,15 +32,17 @@ module Admin
     end
 
     def update_admin_status
-      user = User.find_by(id: params[:id])
-      if user.update(admin: update_admin_params[:admin])
-        render json: { id: user.id, email: user.email, admin: user.admin }
-      else
+      unless @user.update(admin: update_admin_params[:admin])
         render json: {}, status: :unprocessable_entity
+        return
       end
     end
 
     private
+    
+    def set_user
+      @user = User.find_by(id: params[:id])
+    end
 
     def user_params
       params.require(:user).permit(:email, :password, :password_confirmation)
