@@ -64,3 +64,11 @@ Style/SymbolArray:
 
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
+
+Metrics/AbcSize:
+  Exclude:
+    - 'db/migrate/*'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'db/migrate/*'

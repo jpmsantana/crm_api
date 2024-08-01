@@ -7,23 +7,22 @@ class CustomersController < ApplicationController
     @customers = Customer.all
   end
 
-  def show
-  end
+  def show; end
 
   def create
     @customer = Customer.new(customer_params)
     @customer.user = current_user
-    unless @customer.save
-      render json: {}, status: :unprocessable_entity
-      return
-    end
+    return if @customer.save
+
+    render json: {}, status: :unprocessable_entity
+    nil
   end
 
   def update
-    unless @customer.update(customer_params)
-      render json: {}, status: :unprocessable_entity
-      return
-    end
+    return if @customer.update(customer_params)
+
+    render json: {}, status: :unprocessable_entity
+    nil
   end
 
   def destroy

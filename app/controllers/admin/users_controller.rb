@@ -10,17 +10,17 @@ module Admin
 
     def create
       @user = User.new(user_params)
-      unless @user.save
-        render json: {}, status: :unprocessable_entity
-        return
-      end
+      return if @user.save
+
+      render json: {}, status: :unprocessable_entity
+      nil
     end
 
     def update
-      unless @user.update(user_params)
-        render json: {}, status: :unprocessable_entity
-        return
-      end
+      return if @user.update(user_params)
+
+      render json: {}, status: :unprocessable_entity
+      nil
     end
 
     def destroy
@@ -32,14 +32,14 @@ module Admin
     end
 
     def update_admin_status
-      unless @user.update(admin: update_admin_params[:admin])
-        render json: {}, status: :unprocessable_entity
-        return
-      end
+      return if @user.update(admin: update_admin_params[:admin])
+
+      render json: {}, status: :unprocessable_entity
+      nil
     end
 
     private
-    
+
     def set_user
       @user = User.find_by(id: params[:id])
     end
