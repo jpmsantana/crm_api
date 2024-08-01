@@ -69,6 +69,30 @@ Before you begin, ensure you have met the following requirements:
     ```
 2. The API will be available at `http://localhost:3000`.
 
+## Running Tests
+
+To ensure that everything is working correctly, you can run the RSpec tests provided in the project.
+
+### Local Testing
+
+1. Ensure you have the necessary test dependencies installed:
+    ```sh
+    bundle install
+    ```
+2. Run the RSpec tests:
+    ```sh
+    bundle exec rspec -fd
+    ```
+
+### Testing with Docker
+
+1. Run the RSpec tests inside the Docker container:
+    ```sh
+    docker-compose run web bundle exec rspec -fd
+    ```
+
+The test results will be displayed in the console, showing which tests have passed and which have failed.
+
 ## Contributing
 
 We welcome contributions from the community! To ensure a smooth process, please follow these guidelines:
